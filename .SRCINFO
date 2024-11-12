@@ -1,12 +1,12 @@
 pkgbase = kernel-rotate-hook
 	pkgdesc = Rotates kernels after upgrades
-	pkgver = 0.1.2
+	pkgver = 0.1.3
 	pkgrel = 1
 	url = https://github.com/erenfro/kernel-rotate-hook
 	arch = any
 	license = UNLICENSE
 	depends = coreutils
-	backup = etc/kernel-rotation.conf
+	backup = etc/kernel-rotate.conf
 	source = 05-kernel-rotate-pre.hook
 	source = kernel-rotate-cleanup.conf
 	source = kernel-rotate.conf
