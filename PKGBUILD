@@ -15,7 +15,7 @@ source=("05-kernel-rotate-pre.hook"
 sha256sums=('d8207e3c928af934335ec3a6e34283661db6cb40cf1316d71e0f2332816e64bc'
             'f0ba927be1d1778b1b3dacac32fdc1f76c4a86a438c1208bdfdfe7b20cf51c9a'
             '09a145c2e24172e602854682b906b280cd0bc7eee45ecb199227eac968766e7d'
-            'e8c050cc53141b7c8078c8d8f9b1af7a3d0dfa6e87954868d061711707d4866d'
+            'd6d5d7414be2dba19cc554fbe556b93244d0f9e8fd212f309ef3aba6e3cc4690'
             '7e12e5df4bae12cb21581ba157ced20e1986a0508dd10d0e8a4ab9a4cf94e85c')
 backup=('etc/kernel-rotation.conf')
 
