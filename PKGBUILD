@@ -1,6 +1,6 @@
 # Maintainer: Eric Renfro <erenfro@linux-help.org>
 pkgname=kernel-rotate-hook
-pkgver=0.1
+pkgver=0.1.1
 pkgrel=1
 pkgdesc="Rotates kernels after upgrades"
 arch=('any')
