@@ -79,8 +79,8 @@ for line in "${kernels[@]}"; do
         fi
     else
         mkdir -p "${BACKUP_PATH}/.old"
-        cp --reflink "${BOOT_PATH}/vmlinuz-${pkgbase}" "${BACKUP_PATH}/vmlinuz-${pkgbase}"
-        cp --reflink "${BOOT_PATH}/initramfs-${pkgbase}.img" "${BACKUP_PATH}/initramfs-${pkgbase}.img"
-        cp --reflink "${BOOT_PATH}/initramfs-${pkgbase}-fallback.img" "${BACKUP_PATH}/initramfs-${pkgbase}-fallback.img"
+        cp --reflink=auto "${BOOT_PATH}/vmlinuz-${pkgbase}" "${BACKUP_PATH}/vmlinuz-${pkgbase}"
+        cp --reflink=auto "${BOOT_PATH}/initramfs-${pkgbase}.img" "${BACKUP_PATH}/initramfs-${pkgbase}.img"
+        cp --reflink=auto "${BOOT_PATH}/initramfs-${pkgbase}-fallback.img" "${BACKUP_PATH}/initramfs-${pkgbase}-fallback.img"
     fi
 done
