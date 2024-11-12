@@ -5,7 +5,7 @@ kernels=()
 mykver=$(uname -r)
 
 # Read the optional config file for automation
-[[ -f /etc/kernel-rotation.conf ]] && source /etc/kernel-rotation.conf
+[[ -f /etc/kernel-rotate.conf ]] && source /etc/kernel-rotate.conf
 
 # Define defaults and insure sanity with lowercasing forced.
 BOOT_PATH="${BOOT_PATH:-/boot}"
