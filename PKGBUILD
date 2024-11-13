@@ -1,6 +1,6 @@
 # Maintainer: Eric Renfro <erenfro@linux-help.org>
 pkgname=kernel-rotate-hook
-pkgver=0.2.0
+pkgver=0.2.1
 pkgrel=1
 pkgdesc="Rotates kernels after upgrades"
 arch=('any')
@@ -22,7 +22,7 @@ backup=('etc/kernel-rotate.conf')
 package() {
     install -Dm644 'kernel-rotate-cleanup.conf' "${pkgdir}/usr/lib/tmpfiles.d/kernel-rotate-cleanup.conf"
     install -Dm644 'kernel-rotate.conf' "${pkgdir}/etc/kernel-rotate.conf"
-    install -Dm644 '05-kernel-rotate-pre.hook' "${pkgdir}/usr/share/libalpm/hooks/05-kernel-rotate-pre.hook"
+    install -Dm644 '07-kernel-rotate-pre.hook' "${pkgdir}/usr/share/libalpm/hooks/07-kernel-rotate-pre.hook"
     install -Dm755 'kernel-rotate.sh' "${pkgdir}/usr/share/libalpm/scripts/kernel-rotate.sh"
     install -Dm644 'UNLICENSE' "${pkgdir}/usr/share/licenses/${pkgname}/UNLICENSE"
 }
