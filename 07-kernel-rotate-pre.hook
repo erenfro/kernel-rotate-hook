@@ -1,9 +1,13 @@
 [Trigger]
-Type = Path
+Type = Package
 Operation = Install
 Operation = Upgrade
-Target = usr/lib/modules/*/vmlinuz
-Target = usr/lib/dracut/*
+Target = linux
+Target = linux-*
+Target = dracut
+Target = dracut-*
+Target = mkinitcpio
+Target = mkinitcpio-*
 
 [Action]
 Description = Saving Linux kernel...

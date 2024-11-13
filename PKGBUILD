@@ -1,21 +1,21 @@
 # Maintainer: Eric Renfro <erenfro@linux-help.org>
 pkgname=kernel-rotate-hook
-pkgver=0.1.3
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="Rotates kernels after upgrades"
 arch=('any')
 url="https://github.com/erenfro/kernel-rotate-hook"
 license=('UNLICENSE')
 depends=('coreutils')
-source=("05-kernel-rotate-pre.hook"
+source=("07-kernel-rotate-pre.hook"
         "kernel-rotate-cleanup.conf"
 		"kernel-rotate.conf"
 		"kernel-rotate.sh"
 		"UNLICENSE")
-sha256sums=('d8207e3c928af934335ec3a6e34283661db6cb40cf1316d71e0f2332816e64bc'
+sha256sums=('41fdd5abb4b7633fb20ce13717c98258bf428b57ea8c0dc2d0e986036612b6e1'
             'f0ba927be1d1778b1b3dacac32fdc1f76c4a86a438c1208bdfdfe7b20cf51c9a'
             '09a145c2e24172e602854682b906b280cd0bc7eee45ecb199227eac968766e7d'
-            'dee35f4315720297c2f96bff74b0bee1606a2be2679b4829a2c4a33a88720efb'
+            '7265f4dc147668589829c975e347abc42d20c08ecd9f47156f110ed9249d3650'
             '7e12e5df4bae12cb21581ba157ced20e1986a0508dd10d0e8a4ab9a4cf94e85c')
 backup=('etc/kernel-rotate.conf')
 
