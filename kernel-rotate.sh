@@ -83,11 +83,11 @@ for kernel in "${kernels[@]}"; do
             continue
         fi
     else
-        echo mkdir -p "${BACKUP_PATH}"
-        echo cp --reflink=auto "${BOOT_PATH}/vmlinuz-${kernel}" "${BACKUP_PATH}/vmlinuz-${kernel}"
-        echo cp --reflink=auto "${BOOT_PATH}/initramfs-${kernel}.img" "${BACKUP_PATH}/initramfs-${kernel}.img"
+        mkdir -p "${BACKUP_PATH}"
+        cp --reflink=auto "${BOOT_PATH}/vmlinuz-${kernel}" "${BACKUP_PATH}/vmlinuz-${kernel}"
+        cp --reflink=auto "${BOOT_PATH}/initramfs-${kernel}.img" "${BACKUP_PATH}/initramfs-${kernel}.img"
         if [[ -f "${BOOT_PATH}/initramfs-${kernel}-fallback.img" ]]; then
-            echo cp --reflink=auto "${BOOT_PATH}/initramfs-${kernel}-fallback.img" "${BACKUP_PATH}/initramfs-${kernel}-fallback.img"
+            cp --reflink=auto "${BOOT_PATH}/initramfs-${kernel}-fallback.img" "${BACKUP_PATH}/initramfs-${kernel}-fallback.img"
         fi
     fi
 done
