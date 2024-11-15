@@ -1,3 +1,8 @@
 pkg
 src
 kernel-rotate-hook-*.zst
+# Ignore Editor files:
+*.kate-swp
+*~
+*.swp
+*.swo
