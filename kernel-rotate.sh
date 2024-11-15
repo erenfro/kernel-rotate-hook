@@ -13,7 +13,7 @@ BOOT_PATH="${BOOT_PATH:-/boot}"
 BACKUP_PATH="${BACKUP_PATH:-${BOOT_PATH}/.old}"
 ROTATION_STYLE="${ROTATION_STYLE:-none}"
 ROTATION_STYLE="${ROTATION_STYLE,,}"
-ROTATION_KEEP="linux"
+ROTATION_KEEP="${ROTATION_KEEP:-linux}"
 ROTATION_KEEP="${ROTATION_KEEP,,}"
 
 
@@ -23,6 +23,10 @@ while read -r line; do  # build a list of kernels being updated this transaction
     if [[ "${line}" != linux* ]]; then
         echo "Updating all kernels."
         all=true
+        continue
+    fi
+    if [[ "${line}" =~ ^linux-.*-headers$ ]]; then
+        # Skip linux header packages.
         continue
     fi
 
@@ -79,11 +83,11 @@ for kernel in "${kernels[@]}"; do
             continue
         fi
     else
-        mkdir -p "${BACKUP_PATH}"
-        cp --reflink=auto "${BOOT_PATH}/vmlinuz-${kernel}" "${BACKUP_PATH}/vmlinuz-${kernel}"
-        cp --reflink=auto "${BOOT_PATH}/initramfs-${kernel}.img" "${BACKUP_PATH}/initramfs-${kernel}.img"
+        echo mkdir -p "${BACKUP_PATH}"
+        echo cp --reflink=auto "${BOOT_PATH}/vmlinuz-${kernel}" "${BACKUP_PATH}/vmlinuz-${kernel}"
+        echo cp --reflink=auto "${BOOT_PATH}/initramfs-${kernel}.img" "${BACKUP_PATH}/initramfs-${kernel}.img"
         if [[ -f "${BOOT_PATH}/initramfs-${kernel}-fallback.img" ]]; then
-            cp --reflink=auto "${BOOT_PATH}/initramfs-${kernel}-fallback.img" "${BACKUP_PATH}/initramfs-${kernel}-fallback.img"
+            echo cp --reflink=auto "${BOOT_PATH}/initramfs-${kernel}-fallback.img" "${BACKUP_PATH}/initramfs-${kernel}-fallback.img"
         fi
     fi
 done
