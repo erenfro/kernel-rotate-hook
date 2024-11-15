@@ -10,11 +10,11 @@ myactive="$(<"/usr/lib/modules/${mykver}/pkgbase")"
 
 # Define defaults and insure sanity with lowercasing forced.
 BOOT_PATH="${BOOT_PATH:-/boot}"
-BACKUP_PATH="${BACKUP_PATH:-${BOOT_PATH}/.old}"
+BACKUP_PATH="${BACKUP_PATH:-${BOOT_PATH}}"
 ROTATION_STYLE="${ROTATION_STYLE:-none}"
 ROTATION_STYLE="${ROTATION_STYLE,,}"
-ROTATION_KEEP="${ROTATION_KEEP:-linux}"
-ROTATION_KEEP="${ROTATION_KEEP,,}"
+ROTATION_LIST="${ROTATION_LIST:-linux}"
+ROTATION_LIST="${ROTATION_LIST,,}"
 
 
 # Code begins
@@ -57,7 +57,7 @@ for kernel in "${kernels[@]}"; do
     elif [[ "${ROTATION_STYLE}" == "list" ]]; then
         # Check if current item is in the list of kernels to rotate
         found=false
-        for i in ${ROTATION_KEEP}; do
+        for i in ${ROTATION_LIST}; do
             if [[ "$i" == "$kernel" ]]; then
                 found=true
                 break
@@ -73,21 +73,29 @@ for kernel in "${kernels[@]}"; do
         continue
     fi
 
-    echo "KERNEL ROTATION: Rotating ${kernel} to ${BACKUP_PATH}"
+    if [[ "$BOOT_PATH" != "$BACKUP_PATH" ]]; then
+        echo "KERNEL ROTATION: Rotating ${kernel} to ${BACKUP_PATH}"
+    else
+        echo "KERNEL ROTATION: Rotating ${kernel} to ${kernel}.old"
+    fi
+
+    USE_OLD=""
+    [[ "$BOOT_PATH" == "$BACKUP_PATH" ]] && USE_OLD=".old"
 
     if (( sizeUsed > freeSpace )); then
         # Check if existing kernel backups would free up enough space to be rotated anyway
-        freeable="$(du -sc "${BACKUP_PATH}/vmlinuz-${kernel}" "${BACKUP_PATH}/initramfs-${kernel}.img" "${BACKUP_PATH}/initramfs-${kernel}-fallback.img" | grep total | cut -f1)"
+        freeable="$(du -sc "${BACKUP_PATH}/vmlinuz-${kernel}${USE_OLD}" "${BACKUP_PATH}/initramfs-${kernel}.img${USE_OLD}" "${BACKUP_PATH}/initramfs-${kernel}-fallback.img${USE_OLD}" | grep total | cut -f1)"
+
         if (( sizeUsed > (freeSpace + freeable) )); then
             echo "KERNEL ROTATION: WARNING: Not enough free space on /boot to perform kernel rotation"
             continue
         fi
-    else
-        mkdir -p "${BACKUP_PATH}"
-        cp --reflink=auto "${BOOT_PATH}/vmlinuz-${kernel}" "${BACKUP_PATH}/vmlinuz-${kernel}"
-        cp --reflink=auto "${BOOT_PATH}/initramfs-${kernel}.img" "${BACKUP_PATH}/initramfs-${kernel}.img"
-        if [[ -f "${BOOT_PATH}/initramfs-${kernel}-fallback.img" ]]; then
-            cp --reflink=auto "${BOOT_PATH}/initramfs-${kernel}-fallback.img" "${BACKUP_PATH}/initramfs-${kernel}-fallback.img"
-        fi
+    fi
+
+    [[ "$BOOT_PATH" != "$BACKUP_PATH" ]] && mkdir -p "${BACKUP_PATH}"
+    cp --reflink=auto "${BOOT_PATH}/vmlinuz-${kernel}" "${BACKUP_PATH}/vmlinuz-${kernel}${USE_OLD}"
+    cp --reflink=auto "${BOOT_PATH}/initramfs-${kernel}.img" "${BACKUP_PATH}/initramfs-${kernel}.img${USE_OLD}"
+    if [[ -f "${BOOT_PATH}/initramfs-${kernel}-fallback.img" ]]; then
+        cp --reflink=auto "${BOOT_PATH}/initramfs-${kernel}-fallback.img" "${BACKUP_PATH}/initramfs-${kernel}-fallback.img${USE_OLD}"
     fi
 done
