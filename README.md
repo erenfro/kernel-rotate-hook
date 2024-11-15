@@ -4,6 +4,8 @@ This is a kernel rotation alpm-hook for saving backups of kernels for use in rec
 
 It's capable of doing all kernels being installed/upgraded, a specific list of kernel packages, or only the active, along with being able to be disabled, which it is by default.
 
+NOTE: Currently this hook is designed to work with grub, not systemd-boot, at this time.
+
 ## Configuration
 
 Configuration is managed in /etc/kernel-rotation.conf and is self documented within.
